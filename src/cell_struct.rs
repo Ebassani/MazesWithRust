@@ -1,4 +1,15 @@
 pub mod manage_cell {
+    ///  # Cell
+    /// Cells have their x and y coordenates saved and different cardinal directions, 
+    /// if the direction is set to false, that means the cell is not linked to another in that direction
+    /// ## Fields
+    /// * y_axis : The position of the cell in the y axis of the grid
+    /// * x_axis : The position of the cell in the x axis of the grid
+    /// * visited : True if the cell has been visited before, false if not
+    /// * north : When this Cell links itself with one in the north direction this field is set to True
+    /// * south : When this Cell links itself with one in the south direction this field is set to True
+    /// * east : When this Cell links itself with one in the east direction this field is set to True
+    /// * west : When this Cell links itself with one in the west direction this field is set to True
     pub struct Cell {
         y_axis: u32,
         x_axis: u32,
@@ -10,6 +21,13 @@ pub mod manage_cell {
     }
 
     impl Cell {
+        /// # Create a default Cell
+        /// new() is a function that returs a Cell with x and y defined, but all the other fields
+        /// are set as default, in this case, False
+        /// ## Arguments
+        /// * y_axis : the position of the cell in the y axis of the grid
+        /// * x_axis : the position of the cell in the x axis of the grid
+        /// 
         pub fn new(y_axis: u32, x_axis: u32) -> Cell {
             Cell { y_axis, x_axis, visited: (false), north: (false), south: (false), east: (false), west: (false) }
         }
