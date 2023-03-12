@@ -26,12 +26,12 @@ fn main() {
     while visited < maze_height * maze_width{
 
         //Closure that returns the place in the vector of a coordenate
-        let coordenate = |x: u32, y: u32,north:bool, east: bool| -> usize  {
+        let coordenate = |x: u32, y: u32,north:bool, west: bool| -> usize  {
             if north {
                 let calc = (current.last().unwrap().1 - y) * maze_width + (current.last().unwrap().0 + x);
                 return calc as usize
             }
-            if east {
+            if west {
                 let calc = (current.last().unwrap().1 + y) * maze_width + (current.last().unwrap().0 - x);
                 
                 return calc as usize
@@ -86,16 +86,16 @@ fn main() {
                 },
                 3 => {
                     let position = coordenate(1,0,false,true);
-                    cells[coordenate(0,0,false,false)].link_east();
+                    cells[coordenate(0,0,false,false)].link_west();
                     cells[position].visit();
-                    cells[position].link_west();
+                    cells[position].link_east();
                     current.push((cells[position].get_x(),cells[position].get_y()));
                 },
                 4 => {
                     let position = coordenate(1,0,false,false);
-                    cells[coordenate(0,0,false,false)].link_west();
+                    cells[coordenate(0,0,false,false)].link_east();
                     cells[position].visit();
-                    cells[position].link_east();
+                    cells[position].link_west();
                     current.push((cells[position].get_x(),cells[position].get_y()));
                 }
                 _ => print!("error")
@@ -109,6 +109,36 @@ fn main() {
         }
 
         
+    }
+
+    for i in 0..maze_height{
+        for j in 0..maze_width {
+            if cells[(i*10 + j) as usize].get_w() {
+                print!("-");
+            }
+            else {
+                print!("|");
+            }
+            print!("c");
+            if cells[(i*10 + j) as usize].get_e() {
+                print!("-");
+            }
+            else {
+                print!("|");
+            }
+        }
+        print!("\n");
+        for j in 0..maze_width {
+            print!(" ");
+            if cells[(i*10 + j) as usize].get_s() {
+                print!("|");
+            }
+            else {
+                print!("-");
+            }
+            print!(" ")
+        }
+        print!("\n");
     }
     
 }

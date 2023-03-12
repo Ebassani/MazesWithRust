@@ -40,6 +40,9 @@ pub mod manage_cell {
         pub fn link_south(&mut self){ self.south = true; }
         pub fn link_east(&mut self){ self.east = true; }
         pub fn link_west(&mut self){ self.west = true; }
+        pub fn get_w(&self) -> bool { self.west }
+        pub fn get_e(&self) -> bool { self.east }
+        pub fn get_s(&self) -> bool { self.south }
     }
 }
 
