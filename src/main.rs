@@ -3,9 +3,47 @@ mod cell_struct;
 use cell_struct::manage_cell::Cell;
 
 fn main() {
+
     let maze_height = 10;
     let maze_width = 10;
 
+    let maze = create_maze(maze_height, maze_width);
+    
+
+    for i in 0..maze_height{
+        for j in 0..maze_width {
+            if maze[(i*10 + j) as usize].get_w() {
+                print!("-");
+            }
+            else {
+                print!("|");
+            }
+            print!("c");
+            if maze[(i*10 + j) as usize].get_e() {
+                print!("-");
+            }
+            else {
+                print!("|");
+            }
+        }
+        print!("\n");
+        for j in 0..maze_width {
+            print!(" ");
+            if maze[(i*10 + j) as usize].get_s() {
+                print!("|");
+            }
+            else {
+                print!("-");
+            }
+            print!(" ")
+        }
+        print!("\n");
+    }
+    
+}
+
+///Creates a maze and returns it with the cells set as unvisited
+fn create_maze(maze_height: u32, maze_width: u32) -> Vec<Cell> {
     //Cells have a x and y coordenate and a boolean to check if they have been visited before
     let mut cells: Vec<Cell> = Vec::new();
 
@@ -107,38 +145,17 @@ fn main() {
         else {
             current.pop();
         }
-
         
     }
 
-    for i in 0..maze_height{
-        for j in 0..maze_width {
-            if cells[(i*10 + j) as usize].get_w() {
-                print!("-");
-            }
-            else {
-                print!("|");
-            }
-            print!("c");
-            if cells[(i*10 + j) as usize].get_e() {
-                print!("-");
-            }
-            else {
-                print!("|");
-            }
-        }
-        print!("\n");
-        for j in 0..maze_width {
-            print!(" ");
-            if cells[(i*10 + j) as usize].get_s() {
-                print!("|");
-            }
-            else {
-                print!("-");
-            }
-            print!(" ")
-        }
-        print!("\n");
+    unvisit_cells(cells)
+
+}
+
+fn unvisit_cells(mut cells: Vec<Cell>) -> Vec<Cell> {
+    for i in 0..cells.len() {
+        cells[i].clean_cell();
     }
-    
+
+    cells
 }

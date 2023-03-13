@@ -43,6 +43,7 @@ pub mod manage_cell {
         pub fn get_w(&self) -> bool { self.west }
         pub fn get_e(&self) -> bool { self.east }
         pub fn get_s(&self) -> bool { self.south }
+        pub fn clean_cell(&mut self) {self.visited = false}
     }
 }
 
