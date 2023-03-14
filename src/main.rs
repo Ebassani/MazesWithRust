@@ -2,6 +2,8 @@ mod cell_struct;
 pub mod generate;
 use generate::maze;
 
+pub mod solve;
+
 fn main() {
 
     let maze_height = 10;
