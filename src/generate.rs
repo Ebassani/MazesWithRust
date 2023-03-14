@@ -2,7 +2,7 @@ use rand::Rng;
 
 use crate::cell_struct::manage_cell::Cell;
 
-pub fn create_maze(maze_height: u32, maze_width: u32) -> Vec<Cell> {
+pub fn maze(maze_height: u32, maze_width: u32) -> Vec<Cell> {
     //Cells have a x and y coordenate and a boolean to check if they have been visited before
     let mut cells: Vec<Cell> = Vec::new();
 

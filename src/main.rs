@@ -1,13 +1,13 @@
 mod cell_struct;
-pub mod utils;
-use utils::create_maze;
+pub mod generate;
+use generate::maze;
 
 fn main() {
 
     let maze_height = 10;
     let maze_width = 10;
 
-    let maze = create_maze(maze_height, maze_width);
+    let maze = maze(maze_height, maze_width);
     
 
     for i in 0..maze_height{
