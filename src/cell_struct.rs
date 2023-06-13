@@ -11,8 +11,8 @@ pub mod manage_cell {
     /// * east : When this Cell links itself with one in the east direction this field is set to True
     /// * west : When this Cell links itself with one in the west direction this field is set to True
     pub struct Cell {
-        y_axis: u32,
-        x_axis: u32,
+        y_axis: i32,
+        x_axis: i32,
         visited: bool,
         north: bool,
         south: bool,
@@ -28,12 +28,12 @@ pub mod manage_cell {
         /// * y_axis : the position of the cell in the y axis of the grid
         /// * x_axis : the position of the cell in the x axis of the grid
         /// 
-        pub fn new(y_axis: u32, x_axis: u32) -> Cell {
+        pub fn new(y_axis: i32, x_axis: i32) -> Cell {
             Cell { y_axis, x_axis, visited: (false), north: (false), south: (false), east: (false), west: (false) }
         }
 
-        pub fn get_x(&self) -> u32 { self.x_axis }
-        pub fn get_y(&self) -> u32 { self.y_axis }
+        pub fn get_x(&self) -> i32 { self.x_axis }
+        pub fn get_y(&self) -> i32 { self.y_axis }
         pub fn free(&self) -> bool { self.visited }
         pub fn visit(&mut self){ self.visited = true; }
         pub fn link_north(&mut self){ self.north = true; }
@@ -43,6 +43,7 @@ pub mod manage_cell {
         pub fn get_w(&self) -> bool { self.west }
         pub fn get_e(&self) -> bool { self.east }
         pub fn get_s(&self) -> bool { self.south }
+        pub fn get_n(&self) -> bool { self.north }
         pub fn clean_cell(&mut self) {self.visited = false}
     }
 }
