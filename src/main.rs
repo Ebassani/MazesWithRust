@@ -2,6 +2,8 @@ mod cell_struct;
 pub mod generate;
 use generate::maze;
 
+pub mod solve;
+
 fn main() {
 
     let maze_height = 10;
@@ -9,10 +11,6 @@ fn main() {
 
     let maze = maze(maze_height, maze_width);
 
-    /* for cell in maze {
-        print!("C({},{})", cell.get_y(), cell.get_x());
-        print!("N{},S{},L{},O{}\n", cell.get_n(),cell.get_s(),cell.get_e(),cell.get_w() )
-    } */
     
     for i in (0..maze_height).rev() {
         for j in 0..maze_width {

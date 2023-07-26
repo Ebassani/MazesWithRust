@@ -34,16 +34,16 @@ pub fn maze(maze_height: i32, maze_width: i32) -> Vec<Cell> {
         //Checks if it is possible for there to be a Cell in a certain direction
         //If there is a Cell there, check if it is visited
         //In case the Cell is free, save it in a vector
-        if current.last().unwrap().1 < maze_height -1 && !cells[coordenate(0,1)].free() {
+        if current.last().unwrap().1 < maze_height -1 && cells[coordenate(0,1)].free() {
             free_cells.push(1);
         }
-        if current.last().unwrap().1 > 0 && !cells[coordenate(0,-1)].free() {
+        if current.last().unwrap().1 > 0 && cells[coordenate(0,-1)].free() {
             free_cells.push(2);
         }
-        if current.last().unwrap().0 > 0 && !cells[coordenate(-1,0)].free() {
+        if current.last().unwrap().0 > 0 && cells[coordenate(-1,0)].free() {
             free_cells.push(3);
         }
-        if current.last().unwrap().0 < maze_width-1 && !cells[coordenate(1,0)].free() {
+        if current.last().unwrap().0 < maze_width-1 && cells[coordenate(1,0)].free() {
             free_cells.push(4);
         }
 
