@@ -1,50 +1,65 @@
 use crate::cell_struct::manage_cell::Cell;
-use std::thread;
 
-pub fn solve(maze: Vec<Cell>, start: (u32,u32), target: (u32,u32), maze_width: u32, maze_height: u32) {
+pub fn find_path(
+    mut maze: Vec<Cell>, 
+    path: Vec<(i32,i32)>, 
+    target: (i32,i32), 
+    maze_width: i32
+) -> Option<Vec<(i32,i32)>> {
+    if path.last().unwrap() == &target {
+        return Some(path);
+    }
     
-    let mut path: Vec<(u32,u32)> = Vec::new();
-    path.push(start);
-
-    thread::spawn(move || {
-
-        let coordenate = |x: u32, y: u32,north:bool, west: bool| -> usize  {
-            if north {
-                let calc = (path.last().unwrap().1 - y) * maze_width + (path.last().unwrap().0 + x);
-                return calc as usize
-            }
-            if west {
-                 let calc = (path.last().unwrap().1 + y) * maze_width + (path.last().unwrap().0 - x);
-                    
-                return calc as usize
-            }
+    let coordenate = |x: i32, y: i32| -> usize  {
+        let calc = (path.last().unwrap().1 + y) * maze_width + (path.last().unwrap().0 + x);
         
-            let calc = (path.last().unwrap().1 + y) * maze_width + (path.last().unwrap().0 + x);
-                
-            calc as usize
-        };
+        calc as usize
+    };
 
-        let current = path.last().unwrap();
+    let current = coordenate(0,0);
 
-        let mut free_cells: Vec<(u32,u32)> = Vec::new();
-
-        if current.1 > 0 && !maze[coordenate(0,1,true,false)].free() {
-            let position = coordenate(0,1,true,false);
-            free_cells.push((maze[position].get_x(), maze[position].get_y()));
-        }
-        if current.1 < maze_height -1 && !maze[coordenate(0,1,false,false)].free() {
-            let position = coordenate(0,1,false,false);
-            free_cells.push((maze[position].get_x(), maze[position].get_y()));
-        }
-        if current.0 > 0 && !maze[coordenate(1,0,false,true)].free() {
-            let position = coordenate(1,0,false,true);
-            free_cells.push((maze[position].get_x(), maze[position].get_y()));
-        }
-        if current.0 < maze_width-1 && !maze[coordenate(1,0,false,false)].free() {
-            let position = coordenate(1,0,false,false);
-            free_cells.push((maze[position].get_x(), maze[position].get_y()));
-        }
-            
-    });
+    maze[current].visit();
     
+
+    let north = coordenate(0,1);
+    let south = coordenate(0,-1);
+    let east = coordenate(1 ,0);
+    let west = coordenate(-1,0);
+    
+    if maze[current].get_n() && maze[north].free() {
+        let mut next = path.clone();
+        next.push((maze[north].get_x(),maze[north].get_y()));
+        match find_path(maze.clone(), next, target.clone(), maze_width) {
+            Some(new_path) => return Some(new_path),
+            None => print!("")
+        }
+    }
+    if maze[current].get_s() && maze[south].free() {
+        let mut next = path.clone();
+        next.push((maze[south].get_x(),maze[south].get_y()));
+        match find_path(maze.clone(), next, target.clone(), maze_width) {
+            Some(new_path) => return Some(new_path),
+            None => print!("")
+        }
+    }
+    if maze[current].get_e() && maze[east].free() {
+        let mut next = path.clone();
+        next.push((maze[east].get_x(),maze[east].get_y()));
+        match find_path(maze.clone(), next, target.clone(), maze_width) {
+            Some(new_path) => return Some(new_path),
+            None => print!("")
+        }
+    }
+    if maze[current].get_w() && maze[west].free() {
+        let mut next = path.clone();
+        next.push((maze[west].get_x(),maze[west].get_y()));
+        match find_path(maze.clone(), next, target.clone(), maze_width) {
+            Some(new_path) => return Some(new_path),
+            None => print!("")
+        }
+    }
+    
+    
+    None
+
 }

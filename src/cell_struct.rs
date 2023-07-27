@@ -10,6 +10,7 @@ pub mod manage_cell {
     /// * south : When this Cell links itself with one in the south direction this field is set to True
     /// * east : When this Cell links itself with one in the east direction this field is set to True
     /// * west : When this Cell links itself with one in the west direction this field is set to True
+    #[derive(Clone)]
     pub struct Cell {
         y_axis: i32,
         x_axis: i32,
@@ -34,7 +35,7 @@ pub mod manage_cell {
 
         pub fn get_x(&self) -> i32 { self.x_axis }
         pub fn get_y(&self) -> i32 { self.y_axis }
-        pub fn free(&self) -> bool { self.visited }
+        pub fn free(&self) -> bool { !self.visited }
         pub fn visit(&mut self){ self.visited = true; }
         pub fn link_north(&mut self){ self.north = true; }
         pub fn link_south(&mut self){ self.south = true; }
