@@ -10,6 +10,7 @@ pub mod manage_cell {
     /// * south : When this Cell links itself with one in the south direction this field is set to True
     /// * east : When this Cell links itself with one in the east direction this field is set to True
     /// * west : When this Cell links itself with one in the west direction this field is set to True
+    #[derive(Clone)]
     pub struct Cell {
         y_axis: i32,
         x_axis: i32,
